@@ -23,7 +23,7 @@ def unique_houses(filename):
 
     return houses
 
-print unique_houses("cohort_data.txt")
+#print unique_houses("cohort_data.txt")
 
 
 def sort_by_cohort(filename):
@@ -70,7 +70,7 @@ def sort_by_cohort(filename):
 
     return all_students 
 
-print sort_by_cohort("cohort_data.txt")
+#print sort_by_cohort("cohort_data.txt")
 
 
 def students_by_house(filename):
@@ -143,8 +143,12 @@ def students_by_house(filename):
                     ravenclaw, 
                     tas, 
                     instructors]
+
+    file_data.close()
+
     return all_students
-print students_by_house("cohort_data.txt")
+#print students_by_house("cohort_data.txt")
+
 
 def all_students_tuple_list(filename):
     """TODO: Create a list of tuples of student data.
@@ -157,12 +161,40 @@ def all_students_tuple_list(filename):
                 # ...
             ]
     """
+    file_data = open(filename)
+    all_people = []
+    for line in file_data:
+        line = line.rstrip()
+        line = line.split("|")
 
-    student_list = []
+        #all_people.append((line[0] + " " + line[1], line[2], line[3], line[4])) 
+        #if line[4] == 'TA' or line[4] == 'I':
+        #pass
+        #Else:
+        #all_people.append((line[0] + " " + line[1], line[2], line[3], line[4])) 
+        #FIRST OPTION 
+
+
+        #SECOND OPTION 
+        if line[4] != 'TA' and line[4] != 'I':
+            #pass 
+            all_people.append((line[0] + " " + line[1], line[2], line[3], line[4])) 
+
+
+
+    #(line[0] + " " + line[1])
+
+    #student_list = []
 
     # Code goes here
+    #print all_people
 
-    return student_list
+    file_data.close()
+
+    return all_people   
+
+all_students_tuple_list("cohort_data.txt")
+
 
 
 def find_cohort_by_student_name(student_list):
@@ -173,9 +205,18 @@ def find_cohort_by_student_name(student_list):
     'Student not found.' when appropriate. """
 
     # Code goes here
+    alumni = all_students_tuple_list("cohort_data.txt") 
+    for line in alumni:
+        if line[0] == student_list:
+            return line[3]
+        else:
+            continue
 
-    return "Student not found."
+    return 'Student not found'
 
+print find_cohort_by_student_name('Chelsea')
+
+print find_cohort_by_student_name('Stephanie Simon')
 
 ##########################################################################################
 # Further Study Questions
