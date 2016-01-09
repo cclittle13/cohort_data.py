@@ -235,9 +235,21 @@ def find_name_duplicates(filename):
 
     duplicate_names = set()
 
+    file_data = open(filename)
+    for line in file_data:
+        line = line.rstrip()
+        line = line.split("|")
+        duplicate_names.add(line[0])
+        if line[4] == 'TA' or line[4] == 'I':
+            continue
+        else:
+            duplicate_names.add(line[0])
     # Code goes here
 
+
     return duplicate_names
+
+print find_name_duplicates("cohort_data.txt")
 
 
 def find_house_members_by_student_name(student_list):
